@@ -3,11 +3,11 @@ services:
     image: docker.litellm.ai/berriai/litellm:${LITTELM_VERSION}
     container_name: litellm
     env_file:
-      - ../.env.dev
+      - ../../.env.dev
     ports:
       - "4000:4000"
     volumes:
-      - ../config/litellm/config.yaml:/app/config.yaml:ro
+      - ./config.yaml:/app/config.yaml:ro
     depends_on:
       - postgres
     command: >

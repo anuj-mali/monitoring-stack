@@ -3,11 +3,12 @@ services:
     image: grafana/grafana:${GRAFANA_VERSION}
     container_name: grafana
     env_file:
-      - ../.env.dev
+      - ../../.env.dev
     ports:
       - 3000:3000
     volumes:
       - grafana_data:/var/lib/grafana
+      - ./provisioning:/etc/grafana/provisioning:ro
 
 volumes:
   grafana_data:

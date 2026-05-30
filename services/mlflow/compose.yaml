@@ -6,7 +6,7 @@ services:
       postgres:
         condition: service_healthy
     env_file:
-      - ../.env
+      - ../../.env
     environment:
       MLFLOW_BACKEND_STORE_URI: ${MLFLOW_BACKEND_STORE_URI}
 

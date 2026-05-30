@@ -1,10 +1,9 @@
 include:
-  - ./compose/litellm.compose.yaml
-  - ./compose/mlflow.compose.yaml
-  - ./compose/portainer.compose.yaml
-  - ./compose/minio.compose.yaml
-  - ./compose/grafana.compose.yaml
-  - ./compose/prometheus.compose.yaml
+  - ./services/litellm/compose.yaml
+  - ./services/mlflow/compose.yaml
+  - ./services/minio/compose.yaml
+  - ./services/grafana/compose.yaml
+  - ./services/prometheus/compose.yaml
 
 services:
   postgres:
@@ -17,7 +16,7 @@ services:
       - ./.env
     volumes:
       - monitoring_db:/var/lib/postgresql
-      - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh:ro
+      - ./scripts/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U \"$$POSTGRES_USER\" -d postgres"]
       interval: 5s
