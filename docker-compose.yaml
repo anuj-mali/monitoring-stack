@@ -1,8 +1,10 @@
 include:
-  - ./compose/litellm.yaml
-  - ./compose/mlflow.yaml
-  - ./compose/portainer.yaml
-  - ./compose/minio.yaml
+  - ./compose/litellm.compose.yaml
+  - ./compose/mlflow.compose.yaml
+  - ./compose/portainer.compose.yaml
+  - ./compose/minio.compose.yaml
+  - ./compose/grafana.compose.yaml
+  - ./compose/prometheus.compose.yaml
 
 services:
   postgres:

@@ -1,6 +1,6 @@
 services:
   minio:
-    image: minio/minio:latest-cicd
+    image: minio/minio:${MINIO_VERSION}
     container_name: minio
     command: server /data --console-address ":9001"
     ports:
