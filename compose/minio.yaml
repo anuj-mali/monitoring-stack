@@ -1,0 +1,17 @@
+services:
+  minio:
+    image: minio/minio:latest-cicd
+    container_name: minio
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    env_file:
+      - ../.env
+      - ../.env.dev
+    volumes:
+      - monitoring_minio:/data
+
+volumes:
+  monitoring_minio:
+    name: monitoring_minio
