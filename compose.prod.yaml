@@ -18,3 +18,11 @@ services:
     env_file:
       - ./.env
       - ./.env.prod
+
+  postgres:
+    env_file:
+      - ./.env.prod
+
+  nginx:
+    env_file:
+      - ./.env.prod

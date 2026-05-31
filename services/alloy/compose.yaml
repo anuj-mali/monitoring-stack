@@ -1,0 +1,12 @@
+services:
+  alloy:
+    image: alloy:${ALLoy_VERSION}
+    container_name: alloy
+    env_file:
+      - ../../.env.dev
+    ports:
+      - 8080:8080
+    volumes:
+      - ./config.yaml:/etc/alloy/config.yaml:ro
+    command:
+      - --config.file=/etc/alloy/config.yaml

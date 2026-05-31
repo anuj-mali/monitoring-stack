@@ -1,0 +1,19 @@
+services:
+  tempo:
+    image: grafana/tempo:${TEMPO_VERSION}
+    container_name: tempo
+    env_file:
+      - ../../.env.dev
+    ports:
+      - 3200:3200
+      - 4317:4317
+      - 4318:4318
+    volumes:
+      - ./tempo.yaml:/etc/tempo/tempo.yaml:ro
+      - tempo_data:/var/tempo
+    command:
+      - -config.file=/etc/tempo/tempo.yaml
+
+volumes:
+  tempo_data:
+    name: tempo_data
