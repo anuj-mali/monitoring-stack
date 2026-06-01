@@ -1,0 +1,15 @@
+pre-commit:
+  parallel: true
+  commands:
+    sops-check:
+      glob: ".env.{dev,prod}"
+      run: |
+        for file in {staged_files}; do
+          if ! grep -q "ENC\[" "$file"; then
+            echo "ERROR: $file does not appear to be SOPS-encrypted"
+            exit 1
+          fi
+        done
+    lint:
+      glob: "services/**/compose.yaml"
+      run: docker compose -f {staged_files} config --quiet

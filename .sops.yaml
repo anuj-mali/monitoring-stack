@@ -1,0 +1,21 @@
+creation_rules:
+
+  # ---------------------------------------------------------------
+  # PRODUCTION: only the server's key can decrypt
+  # Generate this on the server: age-keygen -o /etc/sops/age/keys.txt
+  # Put the PUBLIC key here. Private key never leaves the server.
+  # ---------------------------------------------------------------
+  - path_regex: \.env\.prod$
+    key_groups:
+      - age:
+          - age1tvqxhg6flay8q52v8a0wwwnme6jwqwrscq4x786k6hexylydlyrqf80tp4
+
+  # ---------------------------------------------------------------
+  # DEV: personal key + any teammate keys can independently decrypt
+  # Each person generates their own: age-keygen -o ~/.config/sops/age/keys.txt
+  # Add everyone's PUBLIC key here.
+  # ---------------------------------------------------------------
+  - path_regex: \.env\.dev$
+    key_groups:
+      - age:
+          - age1tvqxhg6flay8q52v8a0wwwnme6jwqwrscq4x786k6hexylydlyrqf80tp4
