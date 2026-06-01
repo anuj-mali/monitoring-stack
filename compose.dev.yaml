@@ -1,0 +1,27 @@
+include:
+  - compose.yaml
+
+services:
+  litellm:
+    env_file:
+      - ./.env.dev
+
+  grafana:
+    env_file:
+      - ./.env.dev
+
+  prometheus:
+    env_file:
+      - ./.env.dev
+
+  minio:
+    env_file:
+      - ./.env.dev
+
+  postgres:
+    env_file:
+      - ./.env.dev
+
+  nginx:
+    env_file:
+      - ./.env.dev

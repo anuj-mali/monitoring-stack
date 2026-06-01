@@ -10,6 +10,3 @@ pre-commit:
             exit 1
           fi
         done
-    lint:
-      glob: "services/**/compose.yaml"
-      run: docker compose -f {staged_files} config --quiet

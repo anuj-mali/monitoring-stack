@@ -1,0 +1,12 @@
+services:
+  mimir:
+    image: grafana/mimir:${MIMIR_VERSION}
+    container_name: mimir
+    env_file:
+      - ../../.env.dev
+    ports:
+      - 8080:8080
+    volumes:
+      - ./config.yaml:/etc/mimir/config.yaml:ro
+    command:
+      - --config.file=/etc/mimir/config.yaml

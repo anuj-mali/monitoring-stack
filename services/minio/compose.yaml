@@ -8,7 +8,6 @@ services:
       - "9001:9001"
     env_file:
       - ../../.env
-      - ../../.env.dev
     volumes:
       - monitoring_minio:/data
 
