@@ -30,5 +30,8 @@ services:
   minio:
     <<: *prod-env
 
+  create_buckets:
+    <<: *prod-env
+
   postgres:
     <<: *prod-env
