@@ -1,28 +1,34 @@
-include:
-  - compose.yaml
+x-prod-env: &prod-env
+  env_file:
+    - ./.env.prod
 
 services:
+  nginx:
+    <<: *prod-env
+
   litellm:
-    env_file:
-      - ./.env.prod
+    <<: *prod-env
+
+  portainer:
+    <<: *prod-env
+
+  mlflow:
+    <<: *prod-env
+
+  mimir:
+    <<: *prod-env
+
+  loki:
+    <<: *prod-env
 
   grafana:
-    env_file:
-      - ./.env.prod
+    <<: *prod-env
 
   prometheus:
-    env_file:
-      - ./.env.prod
+    <<: *prod-env
 
   minio:
-    env_file:
-      - ./.env
-      - ./.env.prod
+    <<: *prod-env
 
   postgres:
-    env_file:
-      - ./.env.prod
-
-  nginx:
-    env_file:
-      - ./.env.prod
+    <<: *prod-env

@@ -1,27 +1,34 @@
-include:
-  - compose.yaml
+x-dev-env: &dev-env
+  env_file:
+    - ./.env.dev
 
 services:
+  nginx:
+    <<: *dev-env
+
   litellm:
-    env_file:
-      - ./.env.dev
+    <<: *dev-env
+
+  portainer:
+    <<: *dev-env
+
+  mlflow:
+    <<: *dev-env
+
+  mimir:
+    <<: *dev-env
+
+  loki:
+    <<: *dev-env
 
   grafana:
-    env_file:
-      - ./.env.dev
+    <<: *dev-env
 
   prometheus:
-    env_file:
-      - ./.env.dev
+    <<: *dev-env
 
   minio:
-    env_file:
-      - ./.env.dev
+    <<: *dev-env
 
   postgres:
-    env_file:
-      - ./.env.dev
-
-  nginx:
-    env_file:
-      - ./.env.dev
+    <<: *dev-env
