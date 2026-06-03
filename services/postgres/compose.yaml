@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: postgres:latest
+    image: postgres:${POSTGRES_VERSION}
     container_name: monitoring_db
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
@@ -9,7 +9,7 @@ services:
       - ../../.env
     volumes:
       - monitoring_db:/var/lib/postgresql
-      - ./scripts/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh:ro
+      - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U \"$$POSTGRES_USER\" -d postgres"]
       interval: 5s
