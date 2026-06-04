@@ -3,14 +3,21 @@ services:
     image: grafana/loki:${LOKI_VERSION}
     container_name: loki
     env_file:
-      - ../../.env.dev
-    ports:
-      - 3100:3100
+      - ../../.env
     volumes:
       - loki_data:/loki
       - ./config.yaml:/etc/loki/config.yaml:ro
     command:
       - --config.file=/etc/loki/config.yaml
+      - --config.expand-env=true
+    depends_on:
+      minio:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3100/ready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   loki_data:

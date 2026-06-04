@@ -2,6 +2,7 @@ include:
   # - ./services/litellm/compose.yaml
   # - ./services/mlflow/compose.yaml
   - ./services/minio/compose.yaml
+  - ./services/loki/compose.yaml
   # - ./services/grafana/compose.yaml
   - ./services/mimir/compose.yaml
   # - ./services/prometheus/compose.yaml

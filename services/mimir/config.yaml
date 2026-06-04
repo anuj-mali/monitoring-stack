@@ -13,6 +13,7 @@ common:
       insecure: true  # no TLS on internal minio
 
 blocks_storage:
+  storage_prefix: blocks
   s3:
     bucket_name: mimir
   tsdb:
@@ -22,10 +23,12 @@ compactor:
   data_dir: /data/compactor
 
 ruler_storage:
+  storage_prefix: ruler
   s3:
     bucket_name: mimir
 
 alertmanager_storage:
+  storage_prefix: alertmanager
   s3:
     bucket_name: mimir
 
