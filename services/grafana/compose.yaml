@@ -3,12 +3,28 @@ services:
     image: grafana/grafana:${GRAFANA_VERSION}
     container_name: grafana
     env_file:
-      - ../../.env.dev
+      - ../../.env
+    environment:
+      GF_DATABASE_TYPE: postgres
+      GF_DATABASE_HOST: ${POSTGRES_HOST}:${POSTGRES_PORT}
+      GF_DATABASE_NAME: ${GRAFANA_DB}
+      GF_DATABASE_USER: ${POSTGRES_USER}
+      GF_DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_USER}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD}
+      GF_SERVER_HTTP_PORT: ${GRAFANA_PORT}
     ports:
-      - 3000:3000
+      - "${GRAFANA_PORT}:${GRAFANA_PORT}"
     volumes:
       - grafana_data:/var/lib/grafana
       - ./provisioning:/etc/grafana/provisioning:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+      loki:
+        condition: service_healthy
+      mimir:
+        condition: service_started
 
 volumes:
   grafana_data:

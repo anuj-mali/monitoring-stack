@@ -1,9 +1,9 @@
 services:
   alloy:
-    image: alloy:${ALLoy_VERSION}
+    image: grafana/alloy:${ALLOY_VERSION}
     container_name: alloy
     env_file:
-      - ../../.env.dev
+      - ../../.env
     ports:
       - 8080:8080
     volumes:

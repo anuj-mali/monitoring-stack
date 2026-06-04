@@ -3,7 +3,7 @@ services:
     image: prom/prometheus:${PROMETHEUS_VERSION}
     container_name: prometheus
     env_file:
-      - ../../.env.dev
+      - ../../.env
     ports:
       - 9090:9090
     volumes:
