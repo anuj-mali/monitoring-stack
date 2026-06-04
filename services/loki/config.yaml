@@ -13,14 +13,14 @@ common:
   ring:
     kvstore:
       store: inmemory
-
-storage_config:
-  tsdb_shipper:
-    active_index_directory: /loki/index
-    cache_location: /loki/index_cache
-  aws:
-    s3: http://${MINIO_ROOT_USER}:${MINIO_ROOT_PASSWORD}@minio:9000/loki
-    s3forcepathstyle: true
+  storage:
+    s3:
+      endpoint: minio:9000
+      bucketnames: loki
+      access_key_id: ${MINIO_ROOT_USER}
+      secret_access_key: ${MINIO_ROOT_PASSWORD}
+      insecure: true
+      s3forcepathstyle: true
 
 schema_config:
   configs:
@@ -31,6 +31,23 @@ schema_config:
       index:
         prefix: index_
         period: 24h
+
+compactor:
+  working_directory: /loki/compactor
+  delete_request_store: s3
+
+ruler:
+  alertmanager_url: http://mimir:9093
+  storage:
+    type: s3
+    s3:
+      endpoint: minio:9000
+      bucketnames: loki
+      access_key_id: ${MINIO_ROOT_USER}
+      secret_access_key: ${MINIO_ROOT_PASSWORD}
+      insecure: true
+      s3forcepathstyle: true
+  rule_path: /loki/rules-temp
 
 query_range:
   results_cache:
