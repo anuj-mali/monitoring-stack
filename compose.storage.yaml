@@ -1,0 +1,2 @@
+include:
+  - ./services/minio/compose.yaml

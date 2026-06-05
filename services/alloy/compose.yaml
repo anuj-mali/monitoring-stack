@@ -3,10 +3,15 @@ services:
     image: grafana/alloy:${ALLOY_VERSION}
     container_name: alloy
     env_file:
-      - ../../.env
+      - path: ../../${ENV_FILE:-.env}
+        required: true
     ports:
       - 8080:8080
     volumes:
-      - ./config.yaml:/etc/alloy/config.yaml:ro
+      - ./config.alloy:/etc/alloy/config.alloy:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
     command:
-      - --config.file=/etc/alloy/config.yaml
+      - run
+      - --server.http.listen-addr=0.0.0.0:8080
+      - /etc/alloy/config.alloy

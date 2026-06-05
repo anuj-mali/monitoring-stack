@@ -3,7 +3,8 @@ services:
     image: docker.litellm.ai/berriai/litellm:${LITTELM_VERSION}
     container_name: litellm
     env_file:
-      - ../../.env.dev
+      - path: ../../${ENV_FILE:-.env}
+        required: true
     ports:
       - "4000:4000"
     volumes:

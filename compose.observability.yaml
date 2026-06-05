@@ -1,0 +1,9 @@
+include:
+  - ./services/mimir/compose.yaml
+  - ./services/tempo/compose.yaml
+  - ./services/alloy/compose.yaml
+
+services:
+  prometheus:
+    volumes:
+      - ./services/prometheus/prometheus.observability.yaml:/etc/prometheus/prometheus.yml:ro
