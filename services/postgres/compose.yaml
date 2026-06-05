@@ -6,7 +6,8 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     env_file:
-      - ../../.env
+      - path: ../../${ENV_FILE:-.env}
+        required: true
     volumes:
       - monitoring_db:/var/lib/postgresql
       - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh:ro
