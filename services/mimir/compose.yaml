@@ -3,7 +3,8 @@ services:
     image: grafana/mimir:${MIMIR_VERSION}
     container_name: mimir
     env_file:
-      - ../../.env
+      - path: ../../${ENV_FILE:-.env}
+        required: true
     volumes:
       - ./config.yaml:/etc/mimir/config.yaml:ro
       - mimir_data:/data

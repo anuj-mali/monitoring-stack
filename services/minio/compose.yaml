@@ -6,7 +6,8 @@ services:
     ports:
       - "9001:9001"
     env_file:
-      - ../../.env
+      - path: ../../${ENV_FILE:-.env}
+        required: true
     volumes:
       - monitoring_minio:/data
     healthcheck:
@@ -19,7 +20,8 @@ services:
     image: minio/mc:${MC_VERSION}
     container_name: create_buckets
     env_file:
-      - ../../.env
+      - path: ../../${ENV_FILE:-.env}
+        required: true
     depends_on:
       minio:
         condition: service_healthy
