@@ -2,9 +2,9 @@ services:
   tempo:
     image: grafana/tempo:${TEMPO_VERSION}
     container_name: tempo
-    env_file:
-      - path: ../../${ENV_FILE:-.env}
-        required: true
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
     volumes:
       - ./tempo.yaml:/etc/tempo/tempo.yaml:ro
       - tempo_data:/var/tempo

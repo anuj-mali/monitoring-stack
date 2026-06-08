@@ -2,9 +2,9 @@ services:
   mimir:
     image: grafana/mimir:${MIMIR_VERSION}
     container_name: mimir
-    env_file:
-      - path: ../../${ENV_FILE:-.env}
-        required: true
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
     volumes:
       - ./config.yaml:/etc/mimir/config.yaml:ro
       - mimir_data:/data

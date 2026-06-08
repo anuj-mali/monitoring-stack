@@ -5,9 +5,9 @@ services:
     command: server /data --console-address ":9001"
     ports:
       - "9001:9001"
-    env_file:
-      - path: ../../${ENV_FILE:-.env}
-        required: true
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
     volumes:
       - monitoring_minio:/data
     healthcheck:
@@ -19,9 +19,9 @@ services:
   create_buckets:
     image: minio/mc:${MC_VERSION}
     container_name: create_buckets
-    env_file:
-      - path: ../../${ENV_FILE:-.env}
-        required: true
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
     depends_on:
       minio:
         condition: service_healthy

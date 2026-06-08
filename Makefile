@@ -3,45 +3,45 @@ STORAGE     := -f compose.storage.yaml
 OBS         := -f compose.observability.yaml
 LLM         := -f compose.llm.yaml
 PORTAINER   := -f compose.portainer.yaml
-# NGINX excluded from ALL until services/nginx is implemented (empty stub)
+# NGINX excluded from ALL until services/nginx is implemented
 NGINX       := -f compose.nginx.yaml
 
 ALL         := $(CORE) $(STORAGE) $(OBS) $(LLM) $(PORTAINER)
 
-DEV_ENV     := ENV_FILE=.env.dev
-PROD_ENV    := ENV_FILE=.env.prod
+SOPS_DEV  = eval "$$(sops --input-type dotenv --output-type dotenv -d .env.dev  2>/dev/null | grep '=' | sed 's/^/export /')" &&
+SOPS_PROD = eval "$$(sops --input-type dotenv --output-type dotenv -d .env.prod 2>/dev/null | grep '=' | sed 's/^/export /')" &&
 
 .PHONY: core core-prod observability observability-prod llm llm-prod full full-prod down ps logs
 
 core:
-	$(DEV_ENV) docker compose $(CORE) $(STORAGE) up -d
+	$(SOPS_DEV) docker compose $(CORE) $(STORAGE) up -d
 
 core-prod:
-	$(PROD_ENV) docker compose $(CORE) $(STORAGE) up -d
+	$(SOPS_PROD) docker compose $(CORE) $(STORAGE) up -d
 
 observability:
-	$(DEV_ENV) docker compose $(CORE) $(STORAGE) $(OBS) up -d
+	$(SOPS_DEV) docker compose $(CORE) $(STORAGE) $(OBS) up -d
 
 observability-prod:
-	$(PROD_ENV) docker compose $(CORE) $(STORAGE) $(OBS) up -d
+	$(SOPS_PROD) docker compose $(CORE) $(STORAGE) $(OBS) up -d
 
 llm:
-	$(DEV_ENV) docker compose $(CORE) $(STORAGE) $(LLM) up -d
+	$(SOPS_DEV) docker compose $(CORE) $(STORAGE) $(LLM) up -d
 
 llm-prod:
-	$(PROD_ENV) docker compose $(CORE) $(STORAGE) $(LLM) up -d
+	$(SOPS_PROD) docker compose $(CORE) $(STORAGE) $(LLM) up -d
 
 full:
-	$(DEV_ENV) docker compose $(ALL) up -d
+	$(SOPS_DEV) docker compose $(ALL) up -d
 
 full-prod:
-	$(PROD_ENV) docker compose $(ALL) up -d
+	$(SOPS_PROD) docker compose $(ALL) up -d
 
 down:
-	$(DEV_ENV) docker compose $(ALL) down
+	$(SOPS_DEV) docker compose $(ALL) down
 
 ps:
-	$(DEV_ENV) docker compose $(ALL) ps
+	$(SOPS_DEV) docker compose $(ALL) ps
 
 logs:
-	$(DEV_ENV) docker compose $(ALL) logs -f
+	$(SOPS_DEV) docker compose $(ALL) logs -f

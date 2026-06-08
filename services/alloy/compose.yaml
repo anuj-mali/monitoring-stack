@@ -2,9 +2,6 @@ services:
   alloy:
     image: grafana/alloy:${ALLOY_VERSION}
     container_name: alloy
-    env_file:
-      - path: ../../${ENV_FILE:-.env}
-        required: true
     ports:
       - 8080:8080
     volumes:

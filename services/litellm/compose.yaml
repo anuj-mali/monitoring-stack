@@ -2,9 +2,10 @@ services:
   litellm:
     image: docker.litellm.ai/berriai/litellm:${LITTELM_VERSION}
     container_name: litellm
-    env_file:
-      - path: ../../${ENV_FILE:-.env}
-        required: true
+    environment:
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      LITELLM_MASTER_KEY: ${LITELLM_MASTER_KEY}
+      LITELLM_DATABASE_URL: ${LITELLM_DATABASE_URL}
     ports:
       - "4000:4000"
     volumes:

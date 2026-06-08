@@ -2,9 +2,6 @@ services:
   grafana:
     image: grafana/grafana:${GRAFANA_VERSION}
     container_name: grafana
-    env_file:
-      - path: ../../${ENV_FILE:-.env}
-        required: true
     environment:
       GF_DATABASE_TYPE: postgres
       GF_DATABASE_HOST: ${POSTGRES_HOST}:${POSTGRES_PORT}
